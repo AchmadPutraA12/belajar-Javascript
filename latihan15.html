@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Online</title>
+</head>
+<body>
+    <h1>Form Toko Online</h1>
+    <form id="tokoForm">
+        <label for="nama">Nama Pelanggan:</label>
+        <input type="text" name="nama" required><br><br>
+
+        <label for="produk">Pilih Produk:</label>
+        <select name="produk">
+            <option value="TV">TV</option>
+            <option value="AC">AC</option>
+            <option value="Kulkas">Kulkas</option>
+        </select><br><br>
+
+        <label for="jumlah">Jumlah Item:</label>
+        <input type="number" name="jumlah" required><br><br>
+
+        <button type="button" name="proses" onclick="transaksi()">Beli</button>
+    </form>
+
+    <script>
+        function transaksi() {
+            let frm = document.getElementById("tokoForm");
+            let nama = frm.nama.value;
+            let produk = frm.produk.value;
+            let jumlah = frm.jumlah.value;
+
+            let hargaSatuan = 0;
+            switch (produk) {
+                case "TV":
+                    hargaSatuan = 2000000;
+                    break;
+                case "AC":
+                    hargaSatuan = 3000000;
+                    break;
+                case "Kulkas":
+                    hargaSatuan = 4000000;
+                    break;
+                default:
+                    alert("Produk tidak valid");
+                    return;
+            }
+
+            let hargaKotor = hargaSatuan * jumlah;
+            let diskon = 0;
+            let ppn = 0;
+
+            if (produk === "Kulkas" && jumlah >= 3) {
+                diskon = 0.3 * hargaKotor;
+            } else if (produk === "AC" && jumlah >= 3) {
+                diskon = 0.2 * hargaKotor;
+            } else {
+                diskon = 0.1 * hargaKotor;
+            }
+
+            ppn = 0.1 * (hargaKotor - diskon);
+            let hargaBayar = hargaKotor - diskon + ppn;
+            alert("Nama Pelanggan: " + nama +
+                "\nProduk Yang Dibeli: " + produk +
+                "\nHarga Satuan: " + hargaSatuan +
+                "\nJumlah Item: " + jumlah +
+                "\nHarga Kotor: " + hargaKotor +
+                "\nDiskon: " + diskon +
+                "\nPPN: " + ppn +
+                "\nHarga Bayar: " + hargaBayar);
+        }
+    </script>
+</body>
+</html>
